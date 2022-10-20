@@ -3,59 +3,75 @@
   "palette": {
     "line-connector": "#00ff00",
     "hostname": "#62c0ff",
-    "pwd": "#ffff00"
+    "pwd": "#ffff00",
+    "git-fg-clean": "#62c0ff",
+    "git-fg-changed": "#6287ff",
+    "git-fg-ahead-and-behind": "#7f62ff",
+    "git-fg-ahead": "#9962ff",
+    "git-fg-behind": "#c062ff",
+    "kubectl-fg": "#62c0ff",
+    "kubectl-bg": "transparent"
   },
   "blocks": [
     {
       "alignment": "left",
       "segments": [
-        {
+        {          
+          "type": "text",
           "foreground": "p:line-connector",
           "template": "\u2554",
-          "style": "plain",
-          "type": "text"
+          "style": "plain"
         },
-        {
+        {          
+          "type": "text",
           "template": " \u2615 ",
-          "style": "plain",
-          "type": "text"
+          "style": "plain"
         },
-        {
+        {          
+          "type": "session",
           "foreground": "p:hostname",
           "style": "plain",
-          "template": "{{ .HostName }}(",
-          "type": "session"
+          "template": "{{ .HostName }}("
         },
-        {
+        {          
+          "type": "os",
           "properties": {
             "macos": "mac"
           },
           "style": "plain",
-          "template": "{{ if .WSL }}WSL {{ end }}{{.Icon}}",
-          "type": "os"
+          "template": "{{ if .WSL }}WSL {{ end }}{{.Icon}}"
         },
-        {
+        {          
+          "type": "session",
           "foreground": "p:hostname",
           "style": "plain",
-          "template": "):",
-          "type": "session"
+          "template": "):"
         },
         {
+          "type": "path",
           "foreground": "p:pwd",
           "properties": {
             "folder_separator_icon": "/",
             "style": "full"
           },
-          "style": "plain",
-          "type": "path"
+          "style": "plain"
         },
         {
-          "foreground": "#62c0ff",
+          "type": "kubectl",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "p:kubectl-fg",
+          "background": "p:kubectl-bg",
+          "template": "<#ff8800>(</>\uFD31 {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}<#ff8800>)</> "
+        },
+        {
+          "type": "git",
+          "foreground": "p:git-fg-clean",
           "foreground_templates": [
-            "{{ if or (.Working.Changed) (.Staging.Changed) }}#6287ff{{ end }}",
-            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#7f62ff{{ end }}",
-            "{{ if gt .Ahead 0 }}#9962ff{{ end }}",
-            "{{ if gt .Behind 0 }}#c062ff{{ end }}"
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}p:git-fg-changed{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:git-fg-ahead-and-behind{{ end }}",
+            "{{ if gt .Ahead 0 }}p:git-fg-ahead{{ end }}",
+            "{{ if gt .Behind 0 }}p:git-fg-behind{{ end }}"
           ],
           "properties": {
             "branch_max_length": 25,
@@ -64,8 +80,7 @@
             "fetch_upstream_icon": true
           },
           "style": "plain",
-          "template": "<#ff8800>on</> {{.UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
-          "type": "git"
+          "template": "<#ff8800>on</> {{.UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} "
         }
       ],
       "type": "prompt"
