@@ -65,7 +65,7 @@
           "powerline_symbol": "\uE0B0",
           "foreground": "p:kubectl-fg",
           "background": "p:kubectl-bg",
-          "template": " <p:orange-text>(</>\uFD31 {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}<p:orange-text>)</>"
+          "template": " <p:orange-text>(</>\u2388 {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}<p:orange-text>)</>"
         },
         {
           "type": "git",
