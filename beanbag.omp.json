@@ -36,7 +36,7 @@
         {
           "type": "text",
           "style": "plain",
-          "template": " \u2615 "
+          "template": " \uF0F4 "
         },
         {
           "type": "session",
